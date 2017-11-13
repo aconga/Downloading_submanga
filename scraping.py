@@ -28,7 +28,7 @@ def get_imagenes_capitulo(url_imagenes, directorio):
     cant = 1
     for x in range(100):
         imagen_final = imagen_base + '/' + str(cant) + '.jpg'
-        directorio_capitulo = directorio + '/' + str(cant) + '.jpg'
+        directorio_capitulo = directorio + '/' + str(cant+100) + '.jpg'
         print("DIrectorio", directorio_capitulo)
         try:
             urllib.request.urlretrieve(imagen_final, directorio_capitulo)
@@ -59,7 +59,7 @@ def get_url_capitulo(url_completa, nombre_manga):
             print(url_lista)
             print(str(url_lista[4]))
             directorio_capitulo = (str(directorio_actual) + '/' +
-                                   nombre_manga+ '/' + str(url_lista[4]))
+                                   nombre_manga+ '/'+ nombre_manga+ ' ' + str(url_lista[4]))
 
             if not os.path.exists(directorio_capitulo):
                 os.makedirs(directorio_capitulo)
