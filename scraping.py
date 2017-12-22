@@ -28,12 +28,10 @@ def get_imagenes_capitulo(url_imagenes, directorio):
     cant = 1
     for x in range(100):
         imagen_final = imagen_base + '/' + str(cant) + '.jpg'
-        directorio_capitulo = directorio + '/' + str(cant+100) + '.jpg'
-        print("DIrectorio", directorio_capitulo)
+        directorio_capitulo = directorio + '/' + str(cant + 100) + '.jpg'
         try:
             urllib.request.urlretrieve(imagen_final, directorio_capitulo)
             cant += 1
-            print(imagen_final)
         except:
             print("#" * 20, "IMAGEN NO EXISTE, ERROR", "#" * 20)
             break
@@ -41,23 +39,16 @@ def get_imagenes_capitulo(url_imagenes, directorio):
 
 def get_url_capitulo(url_completa, nombre_manga):
     url_manga = url_completa
-    print("TIPO DE URL: ", type(url_manga))
     response = urllib.request.urlopen(url_manga)
     html = response.read()
     htmlStr = html.decode()
     pdata = findall('href=[\'"]?([^\'" >]+)', htmlStr)
 
     for item in pdata:
-        # print("#"*20, "ITEM", "#"*20)
-        # print(item)
         url_lista = item.split('/')
-
 
         if len(url_lista) > 5:
             directorio_actual = os.getcwd()
-            print(directorio_actual)
-            print(url_lista)
-            print(str(url_lista[4]))
             directorio_capitulo = (str(directorio_actual) + '/' +
                                    nombre_manga+ '/'+ nombre_manga+ ' ' + str(url_lista[4]))
 
@@ -77,10 +68,7 @@ def get_url_capitulo(url_completa, nombre_manga):
                 url_imagenes = None
             if url_imagenes:
                 url_imagenes = url_imagenes.split(' ')
-                print('#' * 50)
-                print(type(url_imagenes[0]))
                 imagen_url = url_imagenes[0].strip('\'"')
-                print(imagen_url, "Path")
                 get_imagenes_capitulo(imagen_url, str(directorio_capitulo))
 
 
